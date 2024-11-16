@@ -2263,16 +2263,18 @@ function F_createQingElems() {
 		div.style.zIndex = "2"
 		div.style.textAlign = "center"
 		var array = ["&nbsp","1","2","3"]
+		var arrayv = ["&nbsp","kihagy","hibás","helyes"]
 		for ( var x=0;  x<array.length;  x++ ) {
 			var a = document.createElement("a")
 			div.appendChild(a)
-			a.innerHTML = array[x]
+			a.dataset.jegy = array[x]
+			a.innerHTML = arrayv[x]
 			a.style.padding = "5px 10px"
 			a.style.display = "block"
 			a.style.cursor = "pointer"
 			a.onclick = function() { 
 				var i = this.parentElement.dataset.numQ
-				document.getElementById("span.1."+i).innerHTML = this.innerHTML
+				document.getElementById("span.1."+i).innerHTML = this.dataset.jegy
 			}
 			a.onmouseover = function() { this.style.backgroundColor = "grey" }
 			a.onmouseout = function() { this.style.backgroundColor = "" }
@@ -2499,7 +2501,8 @@ function F_calcOldQs(){
 		
 		var jegy = arrQinf[0]
 		if (arrJegy[jegy]) { arrJegy[jegy] = Number(arrJegy[jegy]) +1 } else { arrJegy[jegy] = 1 }
-		if ( jegy == 3 ) { jegy = 2 }
+		if ( jegy == 2 || jegy == 1 ) { jegy = 0 }
+		if ( jegy == 3 ) { jegy = 1 }
 		atlJegy = Number(atlJegy) +Number(jegy)
 		//console.log(i+" "+jegy+" "+diffTime)
 	}
@@ -3079,7 +3082,8 @@ function F_createQtab() {
 		
 		var td = document.createElement("TD")
 		tr.appendChild(td)
-		td.innerHTML = jegy
+		var jegyNevek = ["&nbsp","kihagy","hibás","helyes"]
+		td.innerHTML = jegyNevek[jegy]
 		
 		// percben, kerekítve
 		var diffTime = Number(currTime) - Number(date)
@@ -3175,7 +3179,7 @@ function F_downloadLS() {
 			downA.click();
 		}
 	}
-	F_downloadTXT(text,fileName)
+	//F_downloadTXT(text,fileName)
 }
 
 
